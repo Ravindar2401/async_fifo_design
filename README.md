@@ -1,116 +1,90 @@
-# Async FIFO Design using Verilog HDL
+# Asynchronous FIFO Design using Verilog
 
-## Project Overview
+## About the Project
 
-This project implements an **Asynchronous FIFO (First-In First-Out)** using **Verilog HDL**. The design safely transfers data between two different clock domains using **Gray code pointer synchronization**, making it suitable for Clock Domain Crossing (CDC) applications.
+This project is an implementation of an Asynchronous FIFO using Verilog HDL. The main objective was to understand how data can be transferred safely between two different clock domains.
 
-The project is fully synthesizable and functionally verified using a Verilog testbench in Vivado.
+Unlike a synchronous FIFO, the read and write operations in an asynchronous FIFO work with independent clocks. To avoid metastability issues, Gray code pointers and two-stage synchronizers are used.
+
+The design was developed in Vivado and verified using a custom Verilog testbench.
 
 ---
 
 ## Features
 
-- Dual Clock Asynchronous FIFO
-- Independent Read and Write Clocks
-- Gray Code Pointer Synchronization
-- Two Flip-Flop Synchronizers
-- Full Flag Generation
-- Empty Flag Generation
-- Parameterized FIFO Depth
-- Synthesizable RTL
-- Functional Verification using Testbench
+- Separate read and write clocks
+- Independent read and write operations
+- Gray code pointer synchronization
+- Two flip-flop synchronizers for CDC
+- FIFO Full detection
+- FIFO Empty detection
+- Parameterized design
+- Fully synthesizable RTL
+- Functionally verified in simulation
 
 ---
 
-## FIFO Architecture
+## Project Files
 
-```
-                +-----------------------+
-                |     Async FIFO        |
-                |                       |
-Write Clock --->|                       |---> Read Clock
-Write Enable -->|                       |---> Read Enable
-Write Data ---->|      FIFO Memory      |---> Read Data
-                |                       |
-                | Gray Pointer Sync     |
-                | Full / Empty Logic    |
-                +-----------------------+
-```
-
----
-
-## RTL Modules
-
-### async_fifo.v
-Top module that instantiates all FIFO submodules.
-
-### fifo_mem.v
-Implements the FIFO memory array used to store data.
-
-### sync_ptr.v
-Implements two-stage synchronizers for safe pointer synchronization across clock domains.
-
-### wptr_full.v
-Generates the write pointer and detects FIFO Full condition.
-
-### rptr_empty.v
-Generates the read pointer and detects FIFO Empty condition.
-
-### async_fifo_tb.v
-Functional verification testbench.
+| File | Description |
+|------|-------------|
+| async_fifo.v | Top module |
+| fifo_mem.v | FIFO memory implementation |
+| sync_ptr.v | Pointer synchronizer |
+| wptr_full.v | Write pointer and Full logic |
+| rptr_empty.v | Read pointer and Empty logic |
+| async_fifo_tb.v | Testbench |
 
 ---
 
 ## Design Parameters
 
-| Parameter | Value |
-|-----------|------|
-| Data Width | 8 bits |
-| Address Width | 4 bits |
-| FIFO Depth | 16 Entries |
-| Write Clock | Independent |
-| Read Clock | Independent |
+- Data Width : 8 bits
+- Address Width : 4 bits
+- FIFO Depth : 16 entries
 
 ---
 
-## Functional Verification
+## Verification
 
-The design has been verified for:
+The following cases were verified during simulation.
 
-- FIFO Reset
-- Multiple Writes
-- Multiple Reads
-- Full Condition
-- Empty Condition
-- Simultaneous Read/Write
-- Pointer Wrap-around
-- Clock Domain Crossing
+- Reset operation
+- Multiple write operations
+- Multiple read operations
+- FIFO Full condition
+- FIFO Empty condition
+- Pointer wrap-around
+- Different read and write clock frequencies
 
-Simulation completed successfully without functional errors.
-
----
-
-## Simulation Waveform
-
-> Add your waveform screenshot here.
-
-Example:
-
-```
-docs/waveform.png
-```
+Simulation completed successfully without any functional mismatches.
 
 ---
 
-## RTL Schematic
+## Simulation Results
 
-> Add your RTL schematic screenshot here.
+Waveform:
 
-Example:
+*(Add your waveform screenshot here.)*
 
-```
-docs/rtl_schematic.png
-```
+RTL Schematic:
+
+*(Add your RTL schematic screenshot here.)*
+
+---
+
+## What I Learned
+
+Working on this project helped me understand:
+
+- FIFO architecture
+- Gray code counters
+- Clock Domain Crossing (CDC)
+- Two flip-flop synchronizers
+- Full and Empty flag generation
+- Pointer synchronization
+- RTL design and verification
+- Debugging using Vivado simulator
 
 ---
 
@@ -125,46 +99,12 @@ docs/rtl_schematic.png
 
 ## Future Improvements
 
-- Almost Full Flag
-- Almost Empty Flag
-- Programmable FIFO Depth
+Some features that can be added in the future:
+
+- Almost Full flag
+- Almost Empty flag
 - SystemVerilog Assertions (SVA)
-- UVM Verification
-- Formal Verification
-
----
-
-## Learning Outcomes
-
-Through this project I gained hands-on experience in:
-
-- RTL Design
-- Asynchronous FIFO Architecture
-- FIFO Memory Design
-- Gray Code Counters
-- Pointer Synchronization
-- Clock Domain Crossing (CDC)
-- Functional Verification
-- Git & GitHub Workflow
-
----
-
-## Repository Structure
-
-```
-async_fifo_design/
-│
-├── async_fifo.v
-├── fifo_mem.v
-├── sync_ptr.v
-├── rptr_empty.v
-├── wptr_full.v
-├── async_fifo_tb.v
-├── README.md
-└── docs/
-    ├── waveform.png
-    └── rtl_schematic.png
-```
+- UVM-based verification
 
 ---
 
@@ -172,9 +112,4 @@ async_fifo_design/
 
 **Ravindar Penchala**
 
-GitHub:
-https://github.com/Ravindar2401
-
----
-
-If you found this project useful, feel free to ⭐ the repository.
+GitHub: https://github.com/Ravindar2401
